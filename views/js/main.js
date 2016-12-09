@@ -545,5 +545,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movingPizzas1.appendChild(elem);
   }
-  updatePositions();
+  requestAnimationFrames(updatePositions);
 });
