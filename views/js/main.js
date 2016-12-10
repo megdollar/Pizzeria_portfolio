@@ -512,7 +512,7 @@ function updatePositions() {
 
   for (var i = 0; i < items.length; i++) {
     var phase = phaseArray[i % 5];
-    items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100 * phase) + 'px, 0px, 0px)';
+    items[i].style.transform = 'translate3D(' + (items[i].basicLeft + 100 * phase) + 'px, 0px, 0px)';
   }
 
 
