@@ -508,8 +508,8 @@ function updatePositions() {
 //the i%5 is generating 5 phases, create an empty array called phase, then generate the i % 5 outside of the loop
   var phaseArray = [];
   var phase;
-  for (var i = 0; i < 5; i ++) {
-    phase = Math.sin(scrollPos + (i % 5));
+  for (var x = 0; x < 5; x ++) {
+    phase = Math.sin(scrollPos + (x % 5));
     phaseArray.push(phase);
   }
   //console.log(phaseArray);
