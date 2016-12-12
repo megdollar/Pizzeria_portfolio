@@ -509,13 +509,12 @@ function updatePositions() {
     phaseArray.push(Math.sin(scrollPos + x));
   }
 
-
+//switch from using the .left to .transform which is going to save time because it will not trigger the layout of the page!
   for (var i = 0; i < items.length; i++) {
     var phase = phaseArray[i % 5];
-    items[i].style.transform = 'translate3D(' + (items[i].basicLeft + 100 * phase) + 'px, 0px, 0px)';
+    var transX = items[i].basicLeft + 100 * phase + 'px';
+    items[i].style.transform = 'translateX(' + transX + ')';
   }
-
-
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
