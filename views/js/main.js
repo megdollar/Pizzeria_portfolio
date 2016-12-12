@@ -528,8 +528,6 @@ function updatePositions() {
   }
 }
 
-window.animating = false;
-
 // runs updatePositions on scroll
 window.addEventListener('scroll', function() {
   window.requestAnimationFrame(updatePositions);
