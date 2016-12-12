@@ -524,7 +524,7 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
-  requestAnimationFrame(updatePostions);
+  requestAnimationFrame(updatePositions);
 }
 
 window.animating = false;
