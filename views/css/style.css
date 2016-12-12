@@ -34,8 +34,6 @@ form {
   width: 256px;
   z-index: -1;
   will-change: transform, opacity;
-  transform: translateX(0);
-  -webkit-transform: translateX(0);
 }
 
 .randomPizzaContainer {
