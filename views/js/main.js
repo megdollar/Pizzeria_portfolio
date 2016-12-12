@@ -497,23 +497,27 @@ function updatePositions() {
 
 //use getElementsByClassName which is faster
   var items = document.getElementsByClassName('mover');
-  
-//calculate items.length outside of the for loop so it is not being re-calculated each iteration
-  var itemLength = items.length;
+
 
 //calculate the scroll top outside of the loop
   var scrollPos = (document.body.scrollTop / 1250);
 
+//calculate items.length outside of the for loop so it is not being re-calculated each iteration
+  var itemLength = items.length;
 
 //the i%5 is generating 5 phases, create an empty array called phase, then generate the i % 5 outside of the loop
   var phaseArray = [];
-  for (var x = 0; x < 5; x ++) {
-    phaseArray.push(Math.sin(scrollPos + x));
+  var phase;
+  for (var i = 0; i < 5; i ++) {
+    phase = Math.sin(scrollPos + (i % 5));
+    phaseArray.push(phase);
   }
+  //console.log(phaseArray);
+
 
 //switch from using the .left to .transform which is going to save time because it will not trigger the layout of the page!
   for (var i = 0; i < itemLength; i++) {
-    var phase = phaseArray[i % 5];
+    phase = phaseArray[i % 5];
     var transX = items[i].basicLeft + 100 * phase + 'px';
     items[i].style.transform = 'translateX('+ transX +')';
   }
