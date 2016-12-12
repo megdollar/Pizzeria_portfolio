@@ -33,7 +33,7 @@ form {
   position: fixed;
   width: 256px;
   z-index: -1;
-  will-change: transform, opactiy;
+  will-change: transform, opacity;
   transform: translateX(0);
   -webkit-transform: translateX(0);
 }
