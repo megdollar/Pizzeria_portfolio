@@ -35,6 +35,8 @@ form {
   will-change: transform, opactiy;
   transform: translateX(0);
   -webkit-transform: translateX(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .randomPizzaContainer {
