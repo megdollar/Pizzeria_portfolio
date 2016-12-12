@@ -486,10 +486,10 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   }
   console.log("Average scripting time to generate last 10 frames: " + sum / 10 + "ms");
 }
+//following the link at https://www.sitepoint.com/introduction-to-hardware-acceleration-css-animations/ I added animation frame and transform
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
@@ -500,7 +500,8 @@ function updatePositions() {
 
 
 //calculate the scroll top outside of the loop
-  var scrollPos = document.body.scrollTop / 1250;
+  var scrollPos = (document.body.scrollTop / 1250);
+
 
 //the i%5 is generating 5 phases, create an empty array called phase, then generate the i % 5 outside of the loop
   var phaseArray = [];
@@ -512,22 +513,25 @@ function updatePositions() {
   for (var i = 0; i < items.length; i++) {
     var phase = phaseArray[i % 5];
     var transX = items[i].basicLeft + 100 * phase + 'px';
-    items[i].style.transform = 'translateX(' + transX + ')';
+    items[i].style.transform = 'translateX('+ transX +')';
   }
 
-  // User Timing API to the rescue again. Seriously, it's worth learning.
+  // User Timing API to the rescue again. Seriously, it's wort learning.
   // Super easy to create custom metrics.
   window.performance.mark("mark_end_frame");
   window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
   if (frame % 10 === 0) {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
-    logAverageFrame(timesToUpdatePosition);
+    logAverageFrame(timesToUpdatePosition); 
   }
-  //requestAnimationFrame(updatePositions);
+  requestAnimationFrame(updatePositions);
 }
 
+window.animating = false;
+
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', function() {
+  window.requestAnimationFrame(updatePositions);
 
 
 //assign movingPizzas1 using getElementById to improve performance
@@ -547,5 +551,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movingPizzas1.appendChild(elem);
   }
-  requestAnimationFrame(updatePositions);
+  updatePositions();
 });
