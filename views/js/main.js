@@ -532,7 +532,7 @@ window.animating = false;
 // runs updatePositions on scroll
 window.addEventListener('scroll', function() {
   window.requestAnimationFrame(updatePositions);
-}
+});
 
 //assign movingPizzas1 using getElementById to improve performance
 var movingPizzas1 = document.getElementById('movingPizzas1');
