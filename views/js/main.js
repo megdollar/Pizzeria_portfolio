@@ -492,6 +492,8 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+
+
   frame++;
   window.performance.mark("mark_start_frame");
 
@@ -530,12 +532,31 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition); 
   }
+//allow further rAF to be called
+  ticking = false;
+}
+//set the initial scroll to 0 and set ticking o false so we are not constantly runnng rAF
+var latestKnownScrollY = 0;
+  ticking = false;
+
+
+//call back for scroll event, keeps track of last scroll value
+function onScroll() {
+  latestKnownScrollY = window.scrollY;
+  requestTick();
 }
 
-// runs updatePositions on scroll
-window.addEventListener('scroll', function() {
-  window.requestAnimationFrame(updatePositions);
-});
+//call rAF if it hasnt been caled yet
+function requestTick() {
+  if(!ticking) {
+    requestAnimationFrame(updatePositions);
+  }
+  ticking = true;
+}
+
+//add event listener for scrolling so rAF runs on scroll event
+window.addEventListener('scroll', onScroll, false);
+
 
 //assign movingPizzas1 using getElementById to improve performance
 var movingPizzas1 = document.getElementById('movingPizzas1');
