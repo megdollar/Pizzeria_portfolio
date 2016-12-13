@@ -461,9 +461,11 @@ var resizePizzas = function(size) {
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
+  //move the pizzaDiv declaration out of the loop to improve performance
+  var pizzasDiv = document.getElementById("randomPizzas");
+
 // This for-loop actually creates and appends all of the pizzas when the page loads
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -519,9 +521,8 @@ function updatePositions() {
 
 //switch from using the .left to .transform which is going to save time because it will not trigger the layout of the page!
   for (var i = 0; i < itemLength; i++) {
-    phase = phaseArray[i % 5];
-    var transX = items[i].basicLeft + 100 * phase + 'px';
-    items[i].style.transform = 'translateX('+ transX +')';
+    phase = phaseArray;
+    items[i].style.transform = 'translateX(' + 100 * phase[i % 5] + 'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's wort learning.
@@ -545,7 +546,6 @@ function onScroll() {
   latestKnownScrollY = window.scrollY;
   requestTick();
 }
-
 //call rAF if it hasnt been caled yet
 function requestTick() {
   if(!ticking) {
@@ -561,19 +561,28 @@ window.addEventListener('scroll', onScroll, false);
 //assign movingPizzas1 using getElementById to improve performance
 var movingPizzas1 = document.getElementById('movingPizzas1');
 
+//per Udacity review calculate the inner.height 
+var intViewportHeight = window.innerHeight;
+
+
+
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
+
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 50; i++) { //create 50 pizzas rather than 200
+  var numOfPizzas = window.innerHeight / s * cols //numOfPizzas created based on bowser window viewport
+  for (var i = 0; i < numOfPizzas; i++) { 
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
+    elem.style.left = (i % cols) * s + 'px';
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movingPizzas1.appendChild(elem);
   }
+  console.log(numOfPizzas);
   updatePositions();
 });
