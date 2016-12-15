@@ -1,4 +1,3 @@
-
 /*
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
@@ -445,7 +444,7 @@ var resizePizzas = function(size) {
     //switch to getElementByClassName to increase speed, values stored in a loop and use %
     var randomPizzaContainer = document.getElementsByClassName("randomPizzaContainer");
 
-    for (var i = 0; i < randomPizzaContainer.length; i++) {
+    for (var i = 0, len = randomPizzaContainer.length; i < len; i++) {
       randomPizzaContainer[i].style.width = newWidth + "%";
     }
   }
@@ -573,8 +572,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var numOfPizzas = window.innerHeight / s * cols //numOfPizzas created based on bowser window viewport
-  for (var i = 0; i < numOfPizzas; i++) { 
-    var elem = document.createElement('img');
+  for (var i = 0, elem; i < numOfPizzas; i++) { 
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
@@ -584,5 +583,6 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movingPizzas1.appendChild(elem);
   }
+  console.log(numOfPizzas);
   updatePositions();
 });
